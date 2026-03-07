@@ -1,0 +1,103 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --cream: #FAF7F2;
+    --cream-dark: #F0EBE1;
+    --indigo: #2D3561;
+    --indigo-light: #3D4880;
+    --gold: #C4962A;
+    --gold-light: #E8B84B;
+    --blush: #E8C4A0;
+    --sage: #7A9E87;
+    --text: #1A1A2E;
+    --text-muted: #6B6B80;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    font-family: var(--font-dm), sans-serif;
+    background: var(--cream);
+    color: var(--text);
+  }
+}
+
+@layer components {
+  .font-display { font-family: var(--font-playfair), serif; }
+
+  .btn {
+    @apply inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium
+           cursor-pointer border-none transition-all duration-200 no-underline whitespace-nowrap;
+  }
+  .btn-primary { @apply bg-[--indigo] text-white hover:-translate-y-px; }
+  .btn-gold {
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    @apply text-white hover:-translate-y-px;
+  }
+  .btn-outline { @apply bg-transparent text-[--indigo] border border-[--indigo]/20 hover:bg-[--indigo] hover:text-white; }
+  .btn-ghost { @apply bg-transparent text-[--text-muted] hover:text-[--indigo] hover:bg-[--cream-dark]; }
+  .btn-danger { @apply bg-red-50 text-red-600 hover:bg-red-600 hover:text-white; }
+  .btn-sm { @apply px-3.5 py-1.5 text-xs; }
+  .btn-lg { @apply px-8 py-3.5 text-base; }
+
+  .input {
+    @apply w-full px-4 py-3 border border-[--indigo]/15 rounded-xl bg-white
+           font-[family-name:var(--font-dm)] text-[15px] text-[--text]
+           outline-none transition-all duration-200
+           placeholder:text-[--text-muted]
+           focus:border-[--indigo] focus:ring-2 focus:ring-[--indigo]/8;
+  }
+
+  .card {
+    @apply bg-white rounded-2xl shadow-sm border border-transparent
+           transition-all duration-200;
+  }
+
+  .live-dot::before {
+    content: '';
+    @apply inline-block w-2 h-2 rounded-full bg-[--sage] mr-1.5;
+    animation: pulse 2s infinite;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+@keyframes slide-up {
+  from { transform: translateY(16px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes toast-in {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes activity-in {
+  from { transform: translateX(-100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+.animate-slide-up { animation: slide-up 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.animate-fade-in { animation: fade-in 0.2s ease; }
+.animate-toast-in { animation: toast-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.animate-activity-in { animation: activity-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+
+/* Progress bar */
+.progress-fill {
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  transition: width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.progress-fill.funded {
+  background: linear-gradient(90deg, var(--sage), #9DC4AC);
+}
