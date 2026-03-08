@@ -17,7 +17,7 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
         where: { deletedAt: null },
         orderBy: { createdAt: "asc" },
         include: {
-          contributions: { select: { amount: true } }, // no token exposed
+          contributions: { select: { amount: true } },
         },
       },
     },
@@ -28,20 +28,18 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
   const isOwner = userId === wishlist.userId;
 
   const items = wishlist.items.map((item) => {
-    const collected = item.contributions.reduce((s, c) => s + c.amount, 0);
+    const collectedKopecks = item.contributions.reduce((s, c) => s + c.amount, 0);
     return {
       id: item.id,
       name: item.name,
-      price: item.price,
+      price: item.price / 100,             // kopecks → roubles
       link: item.link,
       emoji: item.emoji,
       imageUrl: item.imageUrl,
       isGroupBuy: item.isGroupBuy,
-      collected,
+      collected: collectedKopecks / 100,   // kopecks → roubles
       contributorsCount: item.contributions.length,
-      // Owner sees status but NOT who reserved/contributed
       reserved: item.reserved,
-      // Non-owner: reserved = anonymous boolean only
     };
   });
 
