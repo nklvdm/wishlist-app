@@ -90,6 +90,9 @@ function SignInForm() {
           <input className="input" type="password" placeholder="••••••••" value={password}
             onChange={e => setPassword(e.target.value)}
             onKeyDown={e => e.key === "Enter" && handleSubmit()} />
+          {mode === "register" && (
+            <div style={{ fontSize: 12, color: "#6B6B80", marginTop: 6 }}>Минимум 8 символов</div>
+          )}
         </div>
 
         {error && (
